@@ -1,5 +1,31 @@
-const BACKEND_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'https://foodraja-backend.vercel.app';
-const API_BASE = BACKEND_URL.endsWith('/api') ? BACKEND_URL : `${BACKEND_URL}/api`;
+const rawUrl = (import.meta.env.VITE_API_URL || 'https://foodraja-backend.vercel.app').replace(/\/+$/, '');
+const API_BASE = import.meta.env.DEV
+  ? '/api'
+  : (rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`);
+const API_ORIGIN = new URL(rawUrl, window.location.origin).origin;
+
+export function resolveAssetUrl(value) {
+  if (!value) return '';
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (['localhost', '127.0.0.1'].includes(url.hostname)) {
+        const path = `${url.pathname}${url.search}${url.hash}`;
+        return import.meta.env.DEV ? path : `${API_ORIGIN}${path}`;
+      }
+      return value;
+    } catch {
+      return value;
+    }
+  }
+
+  if (value.startsWith('/uploads/') && !import.meta.env.DEV) {
+    return `${API_ORIGIN}${value}`;
+  }
+
+  return value;
+}
 
 export async function fetchRestaurants(params = {}) {
   const query = new URLSearchParams();

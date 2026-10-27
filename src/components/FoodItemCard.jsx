@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus, Minus, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { resolveAssetUrl } from '../services/api';
 
 export default function FoodItemCard({ item, restaurant }) {
   const { items, addItem, updateQuantity } = useCart();
@@ -76,7 +77,7 @@ export default function FoodItemCard({ item, restaurant }) {
         <div className="relative w-28 sm:w-32 shrink-0 flex flex-col items-center">
           <div className="w-28 sm:w-32 h-24 sm:h-28 rounded-xl overflow-hidden bg-gray-100 shadow-inner">
             <img
-              src={item.image || 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&auto=format&fit=crop&q=80'}
+              src={resolveAssetUrl(item.image) || 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&auto=format&fit=crop&q=80'}
               alt={item.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"

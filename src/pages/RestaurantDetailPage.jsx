@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Clock, MapPin, Phone, Bike, ShoppingBag, ArrowLeft, AlertCircle, Sparkles } from 'lucide-react';
-import { fetchRestaurantDetails } from '../services/api';
+import { fetchRestaurantDetails, resolveAssetUrl } from '../services/api';
 import FoodItemCard from '../components/FoodItemCard';
 import { FoodSkeleton } from '../components/LoadingSkeleton';
 import { useCart } from '../context/CartContext';
@@ -84,7 +84,7 @@ export default function RestaurantDetailPage() {
           {/* Cover Photo */}
           <div className="relative h-60 sm:h-72 w-full bg-gray-200">
             <img
-              src={restaurant.coverImage || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80'}
+              src={resolveAssetUrl(restaurant.coverImage) || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80'}
               alt={restaurant.name}
               className="w-full h-full object-cover"
             />
@@ -107,7 +107,7 @@ export default function RestaurantDetailPage() {
               <div className="flex items-end gap-4">
                 {restaurant.logo && (
                   <img
-                    src={restaurant.logo}
+                    src={resolveAssetUrl(restaurant.logo)}
                     alt={restaurant.name}
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white shadow-xl bg-white shrink-0"
                   />

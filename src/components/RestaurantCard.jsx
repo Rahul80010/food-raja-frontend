@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, MapPin, Bike, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { resolveAssetUrl } from '../services/api';
 
 export default function RestaurantCard({ restaurant }) {
   const isOpen = restaurant.isOpenNow;
@@ -11,7 +12,7 @@ export default function RestaurantCard({ restaurant }) {
       {/* Cover Image & Badges */}
       <div className="relative h-48 w-full overflow-hidden bg-gray-100">
         <img
-          src={restaurant.coverImage || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80'}
+          src={resolveAssetUrl(restaurant.coverImage) || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80'}
           alt={restaurant.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
@@ -51,7 +52,7 @@ export default function RestaurantCard({ restaurant }) {
         <div className="absolute bottom-3 left-3 right-3 flex items-end gap-3">
           {restaurant.logo && (
             <img
-              src={restaurant.logo}
+              src={resolveAssetUrl(restaurant.logo)}
               alt={restaurant.name}
               className="w-12 h-12 rounded-xl object-cover border-2 border-white shadow-md bg-white shrink-0"
             />
