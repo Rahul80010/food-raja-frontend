@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://foodraja-backend.vercel.app';
+const API_BASE = `${BACKEND_URL}/api`;
 
 export async function fetchRestaurants(params = {}) {
   const query = new URLSearchParams();
