@@ -15,6 +15,8 @@ import OrderSuccessPage from './pages/OrderSuccessPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 import SearchPage from './pages/SearchPage';
 import MyOrdersPage from './pages/MyOrdersPage';
+import TermsPage from './pages/TermsPage';
+import SiteInfoPage from './pages/SiteInfoPage';
 
 export default function App() {
   return (
@@ -34,6 +36,11 @@ export default function App() {
                 <Route path="/track" element={<OrderTrackingPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/my-orders" element={<MyOrdersPage />} />
+                <Route path="/terms-and-conditions" element={<TermsPage />} />
+                <Route path="/about-us" element={<SiteInfoPage page="about" />} />
+                <Route path="/privacy-policy" element={<SiteInfoPage page="privacy" />} />
+                <Route path="/shipping-and-delivery" element={<SiteInfoPage page="shipping" />} />
+                <Route path="/refund-policy" element={<SiteInfoPage page="refund" />} />
               </Routes>
             </main>
             <Footer />

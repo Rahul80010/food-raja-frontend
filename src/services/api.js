@@ -38,6 +38,13 @@ export async function fetchRestaurants(params = {}) {
   return res.json();
 }
 
+export async function fetchHeroSlides() {
+  const res = await fetch(`${API_BASE}/slides`);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Failed to load homepage slides');
+  return data;
+}
+
 export async function fetchRestaurantDetails(idOrSlug) {
   const res = await fetch(`${API_BASE}/restaurants/${idOrSlug}`);
   const data = await res.json();

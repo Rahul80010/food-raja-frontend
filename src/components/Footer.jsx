@@ -34,6 +34,11 @@ export default function Footer() {
               <li><Link to="/search" className="hover:text-[#FF5722] transition-colors">Search Delicious Dishes</Link></li>
               <li><Link to="/track" className="hover:text-[#FF5722] transition-colors">Live Order Tracking</Link></li>
               <li><Link to="/cart" className="hover:text-[#FF5722] transition-colors">Your Cart</Link></li>
+              <li><Link to="/terms-and-conditions" className="hover:text-[#FF5722] transition-colors">Terms &amp; Conditions</Link></li>
+              <li><Link to="/about-us" className="hover:text-[#FF5722] transition-colors">About Us</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-[#FF5722] transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/shipping-and-delivery" className="hover:text-[#FF5722] transition-colors">Shipping &amp; Delivery</Link></li>
+              <li><Link to="/refund-policy" className="hover:text-[#FF5722] transition-colors">Cancellation &amp; Refund Policy</Link></li>
             </ul>
           </div>
 

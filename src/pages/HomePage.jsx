@@ -16,7 +16,7 @@ import {
   BadgeCheck,
   ShoppingBag
 } from 'lucide-react';
-import { fetchRestaurants } from '../services/api';
+import { fetchRestaurants, fetchHeroSlides, resolveAssetUrl } from '../services/api';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantSkeleton } from '../components/LoadingSkeleton';
 
@@ -73,8 +73,124 @@ const FEATURED_SHOWCASES = [
   }
 ];
 
+const DEFAULT_TOP_SLIDES = [
+  {
+    eyebrow: 'Find your next favourite',
+    title: 'Good food, from kitchens around you.',
+    description: 'Explore local menus and discover a new favourite for lunch, dinner or a little treat.',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1800&auto=format&fit=crop&q=85',
+    alt: 'A table filled with freshly prepared food',
+    action: 'Explore restaurants',
+    href: '/restaurants'
+  },
+  {
+    eyebrow: 'Local menus, made fresh',
+    title: 'Your next delicious meal is one search away.',
+    description: 'Browse biryani, Chettinad favourites, vegetarian plates and more from nearby restaurants.',
+    image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=1800&auto=format&fit=crop&q=85',
+    alt: 'Fresh dishes arranged for a shared meal',
+    action: 'Browse the menu',
+    href: '/restaurants'
+  },
+  {
+    eyebrow: 'A little something for everyone',
+    title: 'Bring local flavour to your table.',
+    description: 'Choose a restaurant, send your order request and our team will help coordinate the details.',
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&auto=format&fit=crop&q=85',
+    alt: 'A freshly plated meal served at a restaurant',
+    action: 'Find your food',
+    href: '/search'
+  }
+];
+
+function HomeTopSlider({ slides }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const slide = slides[activeIndex] || slides[0];
+
+  useEffect(() => setActiveIndex(0), [slides.length]);
+
+  useEffect(() => {
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const timer = setInterval(() => {
+      setActiveIndex(index => (index + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [paused, slides.length]);
+
+  const showSlide = (direction) => {
+    setActiveIndex(index => (index + direction + slides.length) % slides.length);
+  };
+
+  return (
+    <section
+      className="relative isolate overflow-hidden bg-[#211b17]"
+      aria-label="FoodRaja featured restaurants"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
+      }}
+    >
+      <img
+        key={slide.image}
+        src={resolveAssetUrl(slide.image)}
+        alt={slide.alt}
+        className="slider-image-enter absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/55 to-black/15" />
+
+      <div className="mx-auto flex min-h-[340px] max-w-7xl items-center px-12 py-12 sm:min-h-[400px] sm:px-20 sm:py-16 lg:min-h-[460px] lg:px-24">
+        <div className="max-w-2xl text-white" aria-live="polite" aria-atomic="true">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-orange-300 sm:text-sm">{slide.eyebrow}</p>
+          <h2 className="text-3xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">{slide.description}</p>
+          <Link
+            to={slide.href}
+            className="mt-7 inline-flex items-center gap-2 rounded-xl bg-[#FF5722] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-black/20 transition hover:bg-[#E64A19]"
+          >
+            {slide.action}<ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => showSlide(-1)}
+        aria-label="Previous slide"
+        className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/55 sm:left-6 sm:h-12 sm:w-12"
+      >
+        <ArrowRight className="h-5 w-5 rotate-180" />
+      </button>
+      <button
+        type="button"
+        onClick={() => showSlide(1)}
+        aria-label="Next slide"
+        className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/55 sm:right-6 sm:h-12 sm:w-12"
+      >
+        <ArrowRight className="h-5 w-5" />
+      </button>
+
+      <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2" aria-label="Choose a slide">
+        {slides.map((item, index) => (
+          <button
+            key={item.eyebrow}
+            type="button"
+            onClick={() => setActiveIndex(index)}
+            aria-label={`Show slide ${index + 1}: ${item.eyebrow}`}
+            aria-current={activeIndex === index ? 'true' : undefined}
+            className={`h-2.5 rounded-full transition-all ${activeIndex === index ? 'w-8 bg-white' : 'w-2.5 bg-white/60 hover:bg-white'}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   const [restaurants, setRestaurants] = useState([]);
+  const [heroSlides, setHeroSlides] = useState(DEFAULT_TOP_SLIDES);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,6 +202,14 @@ export default function HomePage() {
   useEffect(() => {
     loadRestaurants();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    fetchHeroSlides()
+      .then(res => {
+        if (Array.isArray(res.data) && res.data.length) setHeroSlides(res.data);
+      })
+      .catch(err => console.error('Failed to load homepage slides', err));
+  }, []);
 
   // Subtle auto-rotate featured showcase every 6 seconds
   useEffect(() => {
@@ -119,7 +243,8 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-16 pb-20">
+    <div className="space-y-12 pb-20 sm:space-y-16">
+      <HomeTopSlider slides={heroSlides} />
       
       {/* ============================================================== */}
       {/* ULTRA-PREMIUM HERO SECTION                                     */}

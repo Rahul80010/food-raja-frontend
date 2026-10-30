@@ -8,6 +8,21 @@
   }
 }
 
+@keyframes sliderImageEnter {
+  from { opacity: 0.55; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.slider-image-enter {
+  animation: sliderImageEnter 650ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-image-enter {
+    animation: none;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
