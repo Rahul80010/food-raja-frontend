@@ -4,7 +4,6 @@ import {
   ShoppingBag,
   Search,
   PhoneCall,
-  UtensilsCrossed,
   User,
   LogOut,
   ChevronDown,
@@ -46,16 +45,8 @@ export default function Navbar() {
           
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#E64A19] to-[#FF7043] flex items-center justify-center shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-2xl font-black tracking-tight text-[#1E2022]">FOOD<span className="text-[#FF5722]">RAJA</span></span>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-100 text-[#E64A19] px-1.5 py-0.5 rounded-full">Manual Care</span>
-              </div>
-              <p className="text-[11px] text-gray-500 font-medium hidden sm:block">Personal Call Confirmation on Every Order</p>
-            </div>
+            <img src="/foodraja-logo-v2.png" alt="FoodRaja by Aarika Ashok Foundation" className="h-[76px] w-[140px] rounded-md bg-white object-contain transition-transform group-hover:scale-[1.03]" />
+            <span className="hidden rounded-full bg-orange-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#E64A19] lg:inline">Manual Care</span>
           </Link>
 
           {/* Quick Search */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { UtensilsCrossed, Phone, Mail, MapPin, Heart, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, Heart, ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -10,12 +10,7 @@ export default function Footer() {
           
           {/* Col 1: Brand & Model */}
           <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#E64A19] to-[#FF7043] flex items-center justify-center text-white">
-                <UtensilsCrossed className="w-5 h-5" />
-              </div>
-              <span className="text-2xl font-black text-white">FOOD<span className="text-[#FF5722]">RAJA</span></span>
-            </div>
+            <div><img src="/foodraja-logo-v2.png" alt="FoodRaja by Aarika Ashok Foundation" className="h-20 w-32 rounded-lg bg-white object-contain" /></div>
             <p className="text-sm text-gray-400 leading-relaxed">
               FoodRaja brings your favorite local restaurant flavors straight to your door with personalized, human-centered order coordination.
             </p>

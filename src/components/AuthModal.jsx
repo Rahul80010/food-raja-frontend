@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Lock, Phone, User, MapPin, AlertCircle, Loader2, UtensilsCrossed, CheckCircle2 } from 'lucide-react';
+import { X, Lock, Phone, User, MapPin, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function AuthModal() {
@@ -85,11 +85,8 @@ export default function AuthModal() {
             <X className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-2.5 mb-2">
-            <div className="w-9 h-9 rounded-xl bg-white text-[#FF5722] flex items-center justify-center shadow-md">
-              <UtensilsCrossed className="w-5 h-5" />
-            </div>
-            <span className="font-black text-xl tracking-tight">FOODRAJA</span>
+          <div className="mb-3 inline-flex rounded-xl border border-orange-100 bg-white p-1.5 shadow-md shadow-black/10">
+            <img src="/foodraja-logo-v2.png" alt="FoodRaja by Aarika Ashok Foundation" className="h-[76px] w-[136px] rounded-lg bg-white object-contain" />
           </div>
 
           <h3 className="text-lg font-black leading-tight">
