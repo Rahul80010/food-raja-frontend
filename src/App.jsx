@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { LocationProvider } from './context/LocationContext';
+import LocationGate from './components/LocationGate';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartConflictModal from './components/CartConflictModal';
@@ -21,34 +23,38 @@ import SiteInfoPage from './pages/SiteInfoPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
-          <div className="flex flex-col min-h-screen bg-[#FFFDF9] text-[#1E2022]">
-            <Navbar />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/restaurants" element={<RestaurantsPage />} />
-                <Route path="/restaurant/:slug" element={<RestaurantDetailPage />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/checkout" element={<CartPage />} />
-                <Route path="/order-success/:orderNumber" element={<OrderSuccessPage />} />
-                <Route path="/track" element={<OrderTrackingPage />} />
-                <Route path="/search" element={<SearchPage />} />
-                <Route path="/my-orders" element={<MyOrdersPage />} />
-                <Route path="/terms-and-conditions" element={<TermsPage />} />
-                <Route path="/about-us" element={<SiteInfoPage page="about" />} />
-                <Route path="/privacy-policy" element={<SiteInfoPage page="privacy" />} />
-                <Route path="/shipping-and-delivery" element={<SiteInfoPage page="shipping" />} />
-                <Route path="/refund-policy" element={<SiteInfoPage page="refund" />} />
-              </Routes>
-            </main>
-            <Footer />
-            <CartConflictModal />
-            <AuthModal />
-          </div>
-        </CartProvider>
-      </AuthProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <CartProvider>
+            <LocationGate>
+              <div className="flex min-h-screen flex-col bg-[#FFFDF9] text-[#1E2022]">
+                <Navbar />
+                <main className="flex-1">
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/restaurants" element={<RestaurantsPage />} />
+                    <Route path="/restaurant/:slug" element={<RestaurantDetailPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/checkout" element={<CartPage />} />
+                    <Route path="/order-success/:orderNumber" element={<OrderSuccessPage />} />
+                    <Route path="/track" element={<OrderTrackingPage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/my-orders" element={<MyOrdersPage />} />
+                    <Route path="/terms-and-conditions" element={<TermsPage />} />
+                    <Route path="/about-us" element={<SiteInfoPage page="about" />} />
+                    <Route path="/privacy-policy" element={<SiteInfoPage page="privacy" />} />
+                    <Route path="/shipping-and-delivery" element={<SiteInfoPage page="shipping" />} />
+                    <Route path="/refund-policy" element={<SiteInfoPage page="refund" />} />
+                  </Routes>
+                </main>
+                <Footer />
+                <CartConflictModal />
+                <AuthModal />
+              </div>
+            </LocationGate>
+          </CartProvider>
+        </AuthProvider>
+      </LocationProvider>
     </BrowserRouter>
   );
 }

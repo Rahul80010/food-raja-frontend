@@ -29,6 +29,7 @@ export function resolveAssetUrl(value) {
 
 export async function fetchRestaurants(params = {}) {
   const query = new URLSearchParams();
+  if (params.pincode) query.append('pincode', params.pincode);
   if (params.search) query.append('search', params.search);
   if (params.category) query.append('category', params.category);
   if (params.locality) query.append('locality', params.locality);
@@ -38,6 +39,13 @@ export async function fetchRestaurants(params = {}) {
   return res.json();
 }
 
+export async function fetchKitchensByPincode(pincode) {
+  const res = await fetch(`${API_BASE}/restaurants/by-pincode/${encodeURIComponent(pincode)}`);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Could not check delivery availability');
+  return data;
+}
+
 export async function fetchHeroSlides() {
   const res = await fetch(`${API_BASE}/slides`);
   const data = await res.json();
@@ -45,8 +53,10 @@ export async function fetchHeroSlides() {
   return data;
 }
 
-export async function fetchRestaurantDetails(idOrSlug) {
-  const res = await fetch(`${API_BASE}/restaurants/${idOrSlug}`);
+export async function fetchRestaurantDetails(idOrSlug, pincode) {
+  const query = new URLSearchParams();
+  if (pincode) query.set('pincode', pincode);
+  const res = await fetch(`${API_BASE}/restaurants/${encodeURIComponent(idOrSlug)}?${query.toString()}`);
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.message || 'Failed to load restaurant details');
@@ -56,6 +66,7 @@ export async function fetchRestaurantDetails(idOrSlug) {
 
 export async function searchFoods(params = {}) {
   const query = new URLSearchParams();
+  if (params.pincode) query.append('pincode', params.pincode);
   if (params.q) query.append('q', params.q);
   if (params.vegOnly) query.append('vegOnly', 'true');
   if (params.maxPrice) query.append('maxPrice', params.maxPrice);

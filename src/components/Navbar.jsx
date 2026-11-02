@@ -4,6 +4,7 @@ import {
   ShoppingBag,
   Search,
   PhoneCall,
+  MapPin,
   User,
   LogOut,
   ChevronDown,
@@ -11,10 +12,12 @@ import {
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useLocation } from '../context/LocationContext';
 
 export default function Navbar() {
   const { itemCount, total } = useCart();
   const { user, isAuthenticated, logout, openAuthModal } = useAuth();
+  const { pincode, openLocationPicker } = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -44,7 +47,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex shrink-0 items-center gap-3 group">
             <img src="/foodraja-logo-v2.png" alt="FoodRaja by Aarika Ashok Foundation" className="h-[76px] w-[140px] rounded-md bg-white object-contain transition-transform group-hover:scale-[1.03]" />
             <span className="hidden rounded-full bg-orange-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#E64A19] lg:inline">Manual Care</span>
           </Link>
@@ -65,6 +68,12 @@ export default function Navbar() {
 
           {/* Right Navigation */}
           <div className="flex items-center gap-2.5 sm:gap-4">
+
+            <button type="button" onClick={openLocationPicker} className="hidden items-center gap-2 rounded-xl border border-orange-200 bg-orange-50 px-3 py-2 text-left hover:bg-orange-100 lg:flex">
+              <MapPin className="h-4 w-4 text-[#FF5722]" />
+              <span><span className="block text-[9px] font-bold uppercase tracking-wide text-gray-500">Delivering to</span><span className="block text-xs font-black text-gray-900">{pincode}</span></span>
+              <span className="ml-1 text-[10px] font-bold text-[#E64A19]">Change</span>
+            </button>
             
             {/* Track Order Link */}
             <Link
@@ -165,6 +174,10 @@ export default function Navbar() {
             </Link>
 
           </div>
+        </div>
+        <div className="flex items-center justify-between border-t border-orange-100/80 py-2 lg:hidden">
+          <span className="flex items-center gap-2 text-[11px] font-bold text-gray-500"><MapPin className="h-4 w-4 text-[#FF5722]" /> Delivering to <strong className="text-gray-900">{pincode}</strong></span>
+          <button type="button" onClick={openLocationPicker} className="rounded-lg px-2.5 py-1.5 text-[11px] font-black text-[#E64A19] hover:bg-orange-50">Change location</button>
         </div>
       </div>
     </header>

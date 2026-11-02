@@ -5,6 +5,7 @@ import { fetchRestaurantDetails, resolveAssetUrl } from '../services/api';
 import FoodItemCard from '../components/FoodItemCard';
 import { FoodSkeleton } from '../components/LoadingSkeleton';
 import { useCart } from '../context/CartContext';
+import { useLocation } from '../context/LocationContext';
 
 export default function RestaurantDetailPage() {
   const { slug } = useParams();
@@ -12,18 +13,19 @@ export default function RestaurantDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeCategory, setActiveCategory] = useState('');
+  const { pincode } = useLocation();
   
   const { items, restaurant: cartRestaurant, itemCount, total } = useCart();
 
   useEffect(() => {
     loadDetails();
-  }, [slug]);
+  }, [slug, pincode]);
 
   const loadDetails = async () => {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetchRestaurantDetails(slug);
+      const res = await fetchRestaurantDetails(slug, pincode);
       setData(res.data);
       if (res.data?.menu?.length > 0) {
         setActiveCategory(res.data.menu[0].category);

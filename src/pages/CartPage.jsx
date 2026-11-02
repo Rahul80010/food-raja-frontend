@@ -21,6 +21,7 @@ import {
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { submitOrder } from '../services/api';
+import { useLocation } from '../context/LocationContext';
 
 export default function CartPage() {
   const {
@@ -38,6 +39,7 @@ export default function CartPage() {
   } = useCart();
 
   const { user, token, isAuthenticated, openAuthModal } = useAuth();
+  const { pincode } = useLocation();
   const navigate = useNavigate();
 
   // Checkout Form State
@@ -109,6 +111,7 @@ export default function CartPage() {
       
       const payload = {
         restaurantId: restaurant.id,
+        deliveryPincode: pincode,
         items: items.map(i => ({
           foodId: i.foodId,
           quantity: i.quantity,

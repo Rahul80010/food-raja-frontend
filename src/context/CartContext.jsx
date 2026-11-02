@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { useLocation } from './LocationContext';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
+  const { pincode } = useLocation();
+  const previousPincode = useRef(null);
   const [items, setItems] = useState(() => {
     try {
       const saved = localStorage.getItem('foodraja_cart_items');
@@ -32,6 +35,16 @@ export function CartProvider({ children }) {
       console.error('Failed to save cart to localStorage', e);
     }
   }, [items, restaurant]);
+
+  useEffect(() => {
+    if (previousPincode.current && pincode && previousPincode.current !== pincode) {
+      setItems([]);
+      setRestaurant(null);
+      localStorage.removeItem('foodraja_cart_items');
+      localStorage.removeItem('foodraja_cart_restaurant');
+    }
+    previousPincode.current = pincode;
+  }, [pincode]);
 
   const addItem = (food, restaurantInfo, customization = {}) => {
     // Check if cart already has items from another restaurant

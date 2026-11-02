@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Filter, ChefHat, MapPin, Bike } from 'lucide-react';
 import { fetchRestaurants } from '../services/api';
+import { useLocation } from '../context/LocationContext';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantSkeleton } from '../components/LoadingSkeleton';
 
 export default function RestaurantsPage() {
+  const { pincode } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || '';
 
@@ -18,12 +20,13 @@ export default function RestaurantsPage() {
 
   useEffect(() => {
     loadData();
-  }, [selectedCategory, selectedLocality]);
+  }, [selectedCategory, selectedLocality, pincode]);
 
   const loadData = async () => {
     try {
       setLoading(true);
       const res = await fetchRestaurants({
+        pincode,
         category: selectedCategory,
         locality: selectedLocality
       });

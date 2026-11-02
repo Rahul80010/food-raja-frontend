@@ -4,8 +4,10 @@ import { Search, Filter, ChefHat, ArrowRight, Utensils } from 'lucide-react';
 import { searchFoods } from '../services/api';
 import FoodItemCard from '../components/FoodItemCard';
 import { FoodSkeleton } from '../components/LoadingSkeleton';
+import { useLocation } from '../context/LocationContext';
 
 export default function SearchPage() {
+  const { pincode } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get('q') || '';
 
@@ -19,7 +21,7 @@ export default function SearchPage() {
     if (q) {
       performSearch(q);
     }
-  }, [q, vegOnly, maxPrice]);
+  }, [q, vegOnly, maxPrice, pincode]);
 
   const performSearch = async (queryText) => {
     if (!queryText.trim()) return;
@@ -27,6 +29,7 @@ export default function SearchPage() {
       setLoading(true);
       const res = await searchFoods({
         q: queryText,
+        pincode,
         vegOnly,
         maxPrice
       });
