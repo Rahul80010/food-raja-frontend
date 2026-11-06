@@ -109,6 +109,32 @@ export async function trackOrder(orderNumber) {
 // CUSTOMER AUTHENTICATION APIs
 // ==========================================
 
+export async function sendCustomerOtp(email, name = '') {
+  const res = await fetch(`${API_BASE}/auth/send-otp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, name })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || 'Failed to send OTP code.');
+  }
+  return data;
+}
+
+export async function verifyCustomerOtp({ email, otp, name, phone, address, locality }) {
+  const res = await fetch(`${API_BASE}/auth/verify-otp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, otp, name, phone, address, locality })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || 'Verification failed.');
+  }
+  return data;
+}
+
 export async function loginCustomer(identifier, password) {
   const res = await fetch(`${API_BASE}/auth/login`, {
     method: 'POST',

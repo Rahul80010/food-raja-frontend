@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { loginCustomer, registerCustomer, fetchCustomerProfile } from '../services/api';
+import {
+  loginCustomer,
+  registerCustomer,
+  fetchCustomerProfile,
+  sendCustomerOtp,
+  verifyCustomerOtp
+} from '../services/api';
 
 const AuthContext = createContext();
 
@@ -73,6 +79,33 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const sendOtp = async (email, name = '') => {
+    setLoading(true);
+    try {
+      return await sendCustomerOtp(email, name);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const verifyOtp = async ({ email, otp, name, phone, address, locality }) => {
+    setLoading(true);
+    try {
+      const res = await verifyCustomerOtp({ email, otp, name, phone, address, locality });
+      if (res && res.token && res.user) {
+        setToken(res.token);
+        setUser(res.user);
+        localStorage.setItem('foodraja_customer_token', res.token);
+        localStorage.setItem('foodraja_customer_user', JSON.stringify(res.user));
+        setIsAuthModalOpen(false);
+        return res.user;
+      }
+      throw new Error('Verification failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -106,6 +139,8 @@ export function AuthProvider({ children }) {
         loading,
         login,
         register,
+        sendOtp,
+        verifyOtp,
         logout,
         updateUser,
         isAuthModalOpen,
