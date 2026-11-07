@@ -85,13 +85,17 @@ export default function Navbar() {
             </Link>
 
             {/* Helpline Badge */}
-            <div className="hidden lg:flex items-center gap-2 bg-cream-100 border border-orange-200/60 px-3 py-1.5 rounded-xl">
+            <a
+              href="tel:+919823716001"
+              title="Call FoodRaja Helpline"
+              className="hidden lg:flex items-center gap-2 bg-orange-50/80 hover:bg-orange-100/90 border border-orange-200/60 px-3 py-1.5 rounded-xl transition-colors"
+            >
               <PhoneCall className="w-4 h-4 text-[#FF5722]" />
               <div className="text-left text-xs">
                 <span className="text-gray-500 block text-[10px] uppercase font-bold tracking-wider">Owner Calling Desk</span>
-                <span className="font-bold text-[#1E2022]">+91 98400 12345</span>
+                <span className="font-bold text-[#1E2022]">+91 98237 16001</span>
               </div>
-            </div>
+            </a>
 
             {/* User Profile / Login Button */}
             {isAuthenticated ? (

@@ -1,8 +1,7 @@
-const rawUrl = (import.meta.env.VITE_API_URL || 'https://foodraja-backend.vercel.app').replace(/\/+$/, '');
-const API_BASE = import.meta.env.DEV
-  ? '/api'
-  : (rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`);
-const API_ORIGIN = new URL(rawUrl, window.location.origin).origin;
+// Live Production Backend URL configuration
+const rawUrl = (import.meta.env.VITE_API_URL || 'https://foodraja-backend.vercel.app/api').replace(/\/+$/, '');
+const API_BASE = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
+const API_ORIGIN = API_BASE.replace(/\/api\/?$/, '');
 
 export function resolveAssetUrl(value) {
   if (!value) return '';
@@ -12,7 +11,7 @@ export function resolveAssetUrl(value) {
       const url = new URL(value);
       if (['localhost', '127.0.0.1'].includes(url.hostname)) {
         const path = `${url.pathname}${url.search}${url.hash}`;
-        return import.meta.env.DEV ? path : `${API_ORIGIN}${path}`;
+        return `${API_ORIGIN}${path}`;
       }
       return value;
     } catch {
@@ -20,7 +19,7 @@ export function resolveAssetUrl(value) {
     }
   }
 
-  if (value.startsWith('/uploads/') && !import.meta.env.DEV) {
+  if (value.startsWith('/uploads/')) {
     return `${API_ORIGIN}${value}`;
   }
 

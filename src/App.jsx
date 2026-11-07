@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartConflictModal from './components/CartConflictModal';
 import AuthModal from './components/AuthModal';
+import WhatsAppButton from './components/WhatsAppButton';
 
 import HomePage from './pages/HomePage';
 import RestaurantsPage from './pages/RestaurantsPage';
@@ -50,6 +51,7 @@ export default function App() {
                 <Footer />
                 <CartConflictModal />
                 <AuthModal />
+                <WhatsAppButton />
               </div>
             </LocationGate>
           </CartProvider>
