@@ -8,7 +8,8 @@ import {
   User,
   LogOut,
   ChevronDown,
-  PackageCheck
+  PackageCheck,
+  Heart
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -75,6 +76,17 @@ export default function Navbar() {
               <span className="ml-1 text-[10px] font-bold text-[#E64A19]">Change</span>
             </button>
             
+            {/* Donate Link (HelpBank NGO Support) */}
+            <Link
+              to="/donate"
+              className="group flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-rose-50 to-orange-50 hover:from-rose-100 hover:to-orange-100 border border-rose-200/90 text-rose-600 hover:text-rose-700 rounded-xl text-xs font-black shadow-xs transition-all"
+              title="Help someone in need via HelpBank Crowdfunding"
+            >
+              <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 group-hover:scale-110 transition-transform" />
+              <span>Donate</span>
+              <span className="hidden xl:inline text-[9px] bg-rose-500 text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">HelpBank</span>
+            </Link>
+
             {/* Track Order Link */}
             <Link
               to="/track"
@@ -129,6 +141,15 @@ export default function Navbar() {
                     >
                       <PackageCheck className="w-4 h-4 text-[#FF5722]" />
                       <span>My Orders</span>
+                    </Link>
+
+                    <Link
+                      to="/donate"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3.5 py-2.5 hover:bg-rose-50 font-semibold text-rose-600 transition-colors"
+                    >
+                      <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+                      <span>Donate to HelpBank</span>
                     </Link>
 
                     <button

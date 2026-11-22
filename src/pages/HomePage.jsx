@@ -14,7 +14,9 @@ import {
   CheckCircle2,
   Bike,
   BadgeCheck,
-  ShoppingBag
+  ShoppingBag,
+  Heart,
+  ExternalLink
 } from 'lucide-react';
 import { fetchRestaurants, fetchHeroSlides, resolveAssetUrl } from '../services/api';
 import { useLocation } from '../context/LocationContext';
@@ -430,23 +432,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Floating Badge: Manual Call Confirmation (Bottom Left) */}
-                <div className="absolute -bottom-6 -left-3 sm:-left-6 bg-[#1E2022]/95 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-xl max-w-xs border border-gray-700 hidden sm:block animate-fadeIn">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#FF5722] to-[#FF7043] flex items-center justify-center text-white shrink-0 shadow-md">
-                      <Phone className="w-4 h-4 animate-bounce" />
-                    </div>
-                    <div className="text-xs">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-black text-white">Manual Call Desk</span>
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      </div>
-                      <p className="text-gray-400 text-[11px] leading-tight mt-0.5">
-                        We speak with the chef to guarantee hot availability
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {/* Dish Showcase Card Ends */}
 
                 {/* Floating Badge: 100% Satisfaction (Top Right) */}
                 <div className="absolute -top-4 -right-3 sm:-right-5 bg-white/95 backdrop-blur-md p-2.5 px-3 rounded-2xl shadow-lg border border-orange-100 hidden sm:flex items-center gap-2 animate-fadeIn">
@@ -557,6 +543,91 @@ export default function HomePage() {
             <p className="text-xs text-gray-500 mt-1">Try selecting "All Cuisines" or search for dishes above.</p>
           </div>
         )}
+      </section>
+
+      {/* ============================================================== */}
+      {/* SOCIAL IMPACT & DONATE SECTION (HelpBank Crowdfunding)         */}
+      {/* ============================================================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFF5F2] via-white to-[#FFF0E6] p-8 sm:p-12 border-2 border-rose-100/90 shadow-lg">
+          {/* Subtle background decoration */}
+          <div className="absolute -top-16 -right-16 w-64 h-64 bg-rose-200/30 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-orange-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div className="lg:col-span-8 space-y-4 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs">
+                <Heart className="w-4 h-4 text-rose-500 fill-rose-500 animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-wider text-rose-600">
+                  FoodRaja Care • Feed Someone in Need
+                </span>
+                <span className="text-[10px] bg-rose-100 text-rose-800 font-black px-2 py-0.5 rounded-full hidden sm:inline">
+                  HelpBank NGO Platform
+                </span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-black text-[#1E2022] tracking-tight leading-snug">
+                Enjoy your meal &{' '}
+                <span className="bg-gradient-to-r from-rose-500 via-[#FF5722] to-amber-500 bg-clip-text text-transparent">
+                  help feed a hungry person today
+                </span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl">
+                FoodRaja by Aarika Ashok Foundation has partnered with <strong>HelpBank</strong> — India's trusted NGO crowdfunding platform.
+                With just a small donation, you can sponsor warm meals or dry ration kits for impoverished families, street children, and elderly people in need.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2 justify-center lg:justify-start">
+                <a
+                  href="https://www.helpbank.in/campaigns"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-rose-500 to-[#FF5722] hover:from-rose-600 hover:to-[#E64A19] text-white px-6 py-3.5 rounded-xl font-black text-sm shadow-md shadow-rose-500/25 transition-all transform hover:-translate-y-0.5"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  <span>Donate on HelpBank Now</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+
+                <Link
+                  to="/donate"
+                  className="inline-flex items-center gap-2 bg-white hover:bg-rose-50 text-gray-800 border border-rose-200 px-5 py-3.5 rounded-xl font-bold text-sm shadow-2xs transition-all"
+                >
+                  <span>Learn About Our Cause</span>
+                  <ArrowRight className="w-4 h-4 text-[#FF5722]" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-rose-100 shadow-md space-y-4">
+              <div className="flex items-center gap-2 text-rose-600 font-bold text-xs">
+                <Sparkles className="w-4 h-4 text-rose-500" />
+                <span>How Your Support Helps</span>
+              </div>
+              <ul className="space-y-3 text-xs text-gray-600">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5">₹</span>
+                  <span><strong>₹500</strong> provides 10 warm fresh meals to needy people.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5">📦</span>
+                  <span><strong>₹1,500</strong> supplies a full month dry ration kit to a family.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5">🛡️</span>
+                  <span><strong>100% Verified</strong> NGO campaigns on HelpBank platform.</span>
+                </li>
+              </ul>
+              <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500 font-medium">
+                <span>Direct NGO Crowdfunding</span>
+                <span className="font-bold text-rose-600">HelpBank.in</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </section>
 
       {/* ============================================================== */}

@@ -20,6 +20,7 @@ import SearchPage from './pages/SearchPage';
 import MyOrdersPage from './pages/MyOrdersPage';
 import TermsPage from './pages/TermsPage';
 import SiteInfoPage from './pages/SiteInfoPage';
+import DonatePage from './pages/DonatePage';
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
                     <Route path="/privacy-policy" element={<SiteInfoPage page="privacy" />} />
                     <Route path="/shipping-and-delivery" element={<SiteInfoPage page="shipping" />} />
                     <Route path="/refund-policy" element={<SiteInfoPage page="refund" />} />
+                    <Route path="/donate" element={<DonatePage />} />
                   </Routes>
                 </main>
                 <Footer />

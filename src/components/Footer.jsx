@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Heart, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, Heart, ShieldCheck, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -18,6 +18,10 @@ export default function Footer() {
               <ShieldCheck className="w-4 h-4 shrink-0 text-[#FF5722]" />
               <span>Owner directly verifies food availability & updates you via phone!</span>
             </div>
+            <div className="flex items-center gap-2 text-xs text-rose-300 bg-rose-950/40 border border-rose-800/60 p-3 rounded-xl">
+              <Heart className="w-4 h-4 shrink-0 text-rose-400 fill-rose-400" />
+              <span>Partnered with <a href="https://www.helpbank.in/campaigns" target="_blank" rel="noopener noreferrer" className="underline font-bold text-white hover:text-rose-200">HelpBank NGO</a> for hunger relief.</span>
+            </div>
           </div>
 
           {/* Col 2: Quick Links */}
@@ -30,6 +34,7 @@ export default function Footer() {
               <li><Link to="/track" className="hover:text-[#FF5722] transition-colors">Live Order Tracking</Link></li>
               <li><Link to="/cart" className="hover:text-[#FF5722] transition-colors">Your Cart</Link></li>
               <li><Link to="/terms-and-conditions" className="hover:text-[#FF5722] transition-colors">Terms &amp; Conditions</Link></li>
+              <li><Link to="/donate" className="text-rose-400 font-bold hover:text-rose-300 transition-colors flex items-center gap-1.5"><Heart className="w-3.5 h-3.5 fill-rose-400" /> Donate via HelpBank</Link></li>
               <li><Link to="/about-us" className="hover:text-[#FF5722] transition-colors">About Us</Link></li>
               <li><Link to="/privacy-policy" className="hover:text-[#FF5722] transition-colors">Privacy Policy</Link></li>
               <li><Link to="/shipping-and-delivery" className="hover:text-[#FF5722] transition-colors">Shipping &amp; Delivery</Link></li>

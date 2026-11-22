@@ -16,7 +16,9 @@ import {
   ShieldCheck,
   CheckCircle2,
   Lock,
-  Sparkles
+  Sparkles,
+  Heart,
+  ExternalLink
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -541,6 +543,29 @@ export default function CartPage() {
               By clicking "Confirm & Place Order", your request is sent to our manual dispatch center. We do not charge cancellation fees prior to restaurant confirmation.
             </p>
 
+          </div>
+
+          {/* HelpBank NGO Crowdfunding Donation Box */}
+          <div className="bg-gradient-to-br from-rose-50/80 via-white to-orange-50/60 p-5 rounded-3xl border border-rose-200/90 shadow-xs space-y-3">
+            <div className="flex items-center gap-2 text-rose-600 font-black text-xs">
+              <Heart className="w-4 h-4 fill-rose-500 text-rose-500 animate-pulse" />
+              <span>Share a Meal with Someone in Need</span>
+            </div>
+            <p className="text-xs text-gray-600 leading-relaxed">
+              Every meal is a blessing. Want to help a hungry child or family today? Support verified hunger relief campaigns through our NGO crowdfunding partner <strong>HelpBank</strong>.
+            </p>
+            <div className="flex items-center justify-between pt-1">
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">HelpBank NGO Platform</span>
+              <a
+                href="https://www.helpbank.in/campaigns"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-black shadow-xs transition-all"
+              >
+                <span>Donate on HelpBank</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
 
         </div>
